@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CountdownSequenceUpdated;
 use App\Models\Countdown;
 use App\Models\CountdownSequence;
 use App\Repositories\Contracts\CountdownRepositoryInterface;
@@ -143,4 +144,71 @@ class CountdownController extends Controller
             'data' => $share,
         ]);
     }
+
+    public function sequenceStart(Request $request, CountdownSequence $sequence): JsonResponse
+    {
+        $sequence->update([
+            'status' => 'running',
+            'started_at' => now(),
+            'paused_at' => null,
+            'current_item_position' => 0,
+            'paused_seconds' => 0,
+        ]);
+
+        $sequence = $sequence->load(['items.countdown', 'share']);
+        CountdownSequenceUpdated::dispatch($sequence);
+
+        return response()->json([
+            'data' => $sequence,
+        ]);
+    }
+
+    public function sequencePause(CountdownSequence $sequence): JsonResponse
+    {
+        $sequence->update([
+            'status' => 'paused',
+            'paused_at' => now(),
+        ]);
+
+        $sequence = $sequence->load(['items.countdown', 'share']);
+        CountdownSequenceUpdated::dispatch($sequence);
+
+        return response()->json([
+            'data' => $sequence,
+        ]);
+    }
+
+    public function sequenceResume(CountdownSequence $sequence): JsonResponse
+    {
+        $sequence->update([
+            'status' => 'running',
+            'paused_at' => null,
+        ]);
+
+        $sequence = $sequence->load(['items.countdown', 'share']);
+        CountdownSequenceUpdated::dispatch($sequence);
+
+        return response()->json([
+            'data' => $sequence,
+        ]);
+    }
+
+    public function sequenceStop(CountdownSequence $sequence): JsonResponse
+    {
+        $sequence->update([
+            'status' => 'pending',
+            'started_at' => null,
+            'paused_at' => null,
+            'current_item_position' => 0,
+            'paused_seconds' => 0,
+        ]);
+
+        $sequence = $sequence->load(['items.countdown', 'share']);
+        CountdownSequenceUpdated::dispatch($sequence);
+
+        return response()->json([
+            'data' => $sequence,
+        ]);
+    }
+
 }

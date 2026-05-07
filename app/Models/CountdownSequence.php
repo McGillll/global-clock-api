@@ -22,6 +22,9 @@ class CountdownSequence extends Model
         'current_item_index',
         'started_at',
         'paused_at',
+        'status',
+        'current_item_position',
+        'paused_seconds',
     ];
 
     protected function casts(): array
@@ -31,6 +34,9 @@ class CountdownSequence extends Model
             'current_item_index' => 'integer',
             'started_at' => 'datetime',
             'paused_at' => 'datetime',
+            'status' => 'string',
+            'current_item_position' => 'integer',
+            'paused_seconds' => 'integer',
         ];
     }
 
