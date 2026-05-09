@@ -36,6 +36,7 @@ class CountdownSequenceUpdated implements ShouldBroadcast
     {
         return [
             'sequence' => $this->sequence->load(['items.countdown', 'share']),
+            'now' => now()->timestamp * 1000,
         ];
     }
 }
