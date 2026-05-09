@@ -104,6 +104,7 @@ class CountdownController extends Controller
     {
         return response()->json([
             'data' => $sequence->load(['items.countdown', 'share']),
+            'now' => now()->timestamp * 1000,
         ]);
     }
 
@@ -143,6 +144,7 @@ class CountdownController extends Controller
 
         return response()->json([
             'data' => $share,
+            'now' => now()->timestamp * 1000,
         ]);
     }
 
@@ -161,6 +163,7 @@ class CountdownController extends Controller
 
         return response()->json([
             'data' => $sequence,
+            'now' => now()->timestamp * 1000,
         ]);
     }
 
@@ -218,6 +221,7 @@ class CountdownController extends Controller
 
         return response()->json([
             'data' => $sequence,
+            'now' => now()->timestamp * 1000,
         ]);
     }
 
