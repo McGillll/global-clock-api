@@ -85,6 +85,7 @@ class CountdownController extends Controller
             'slug' => ['nullable', 'string', 'max:255'],
             'is_running' => ['sometimes', 'boolean'],
             'current_item_index' => ['sometimes', 'integer', 'min:0'],
+            'loop_count' => ['sometimes', 'integer', 'min:1'],
             'items' => ['required', 'array', 'min:1'],
             'items.*.countdown_id' => ['required', 'integer', 'exists:countdowns,id'],
         ]);
@@ -191,6 +192,15 @@ class CountdownController extends Controller
         return response()->json([
             'data' => $sequence,
         ]);
+    }
+
+    public function sequenceDestroy(CountdownSequence $sequence): JsonResponse
+    {
+        $sequence->items()->delete();
+        $sequence->share()->delete();
+        $sequence->delete();
+
+        return response()->json(status: 204);
     }
 
     public function sequenceStop(CountdownSequence $sequence): JsonResponse

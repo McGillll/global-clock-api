@@ -34,5 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('{sequence}/pause', [CountdownController::class, 'sequencePause']);
         Route::post('{sequence}/resume', [CountdownController::class, 'sequenceResume']);
         Route::post('{sequence}/stop', [CountdownController::class, 'sequenceStop']);
+        Route::delete('{sequence}', [CountdownController::class, 'sequenceDestroy']);
     });
 });

@@ -25,6 +25,7 @@ class CountdownSequence extends Model
         'status',
         'current_item_position',
         'paused_seconds',
+        'loop_count',
     ];
 
     protected function casts(): array
@@ -37,6 +38,7 @@ class CountdownSequence extends Model
             'status' => 'string',
             'current_item_position' => 'integer',
             'paused_seconds' => 'integer',
+            'loop_count' => 'integer',
         ];
     }
 
