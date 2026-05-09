@@ -33,6 +33,8 @@ class CountdownController extends Controller
             'duration_seconds' => ['required', 'integer', 'min:1'],
             'notes' => ['nullable', 'string'],
             'is_active' => ['sometimes', 'boolean'],
+            'background_color' => ['sometimes', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'],
+            'font_color' => ['sometimes', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'],
         ]);
 
         $attributes['user_id'] = $attributes['user_id'] ?? (int) ($request->user()?->id ?? 1);
@@ -56,6 +58,8 @@ class CountdownController extends Controller
             'duration_seconds' => ['sometimes', 'integer', 'min:1'],
             'notes' => ['sometimes', 'nullable', 'string'],
             'is_active' => ['sometimes', 'boolean'],
+            'background_color' => ['sometimes', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'],
+            'font_color' => ['sometimes', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'],
         ]);
 
         return response()->json([

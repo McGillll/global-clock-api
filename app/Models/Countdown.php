@@ -18,6 +18,8 @@ class Countdown extends Model
         'duration_seconds',
         'notes',
         'is_active',
+        'background_color',
+        'font_color',
     ];
 
     protected function casts(): array
@@ -25,6 +27,8 @@ class Countdown extends Model
         return [
             'duration_seconds' => 'integer',
             'is_active' => 'boolean',
+            'background_color' => 'string',
+            'font_color' => 'string',
         ];
     }
 
